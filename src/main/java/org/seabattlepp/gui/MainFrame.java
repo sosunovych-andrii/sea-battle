@@ -1,5 +1,7 @@
 package org.seabattlepp.gui;
 
+import org.seabattlepp.mechanics.core.BoardManager;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -15,6 +17,8 @@ public class MainFrame extends JFrame {
     public BoardPanel boardPanel;
     public ShipPanel shipPanel;
     public ButtonPanel buttonPanel;
+
+    public BoardManager boardManager;
 
     public MainFrame() {
         setTitle("Морський Бій");
@@ -61,5 +65,7 @@ public class MainFrame extends JFrame {
         // Налаштування розміру вікна
         pack();
         setLocationRelativeTo(null);
+
+        boardManager = new BoardManager(boardPanel.computerShipButtons, boardPanel.playerShipButtons);
     }
 }
