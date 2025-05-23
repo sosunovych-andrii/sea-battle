@@ -1,9 +1,12 @@
 package org.seabattlepp.gui;
 
-import org.seabattlepp.mechanics.core.BoardManager;
-
 import javax.swing.*;
 import java.awt.*;
+
+import org.seabattlepp.mechanics.opponent.ComputerPlayer;
+import org.seabattlepp.mechanics.core.GameController;
+import org.seabattlepp.mechanics.core.BoardManager;
+import org.seabattlepp.mechanics.core.BoardRenderer;
 
 
 public class MainFrame extends JFrame {
@@ -18,7 +21,12 @@ public class MainFrame extends JFrame {
     public ShipPanel shipPanel;
     public ButtonPanel buttonPanel;
 
+    // Логіка гри
+    public GameController gameController;
     public BoardManager boardManager;
+    public BoardRenderer boardRenderer;
+    public ComputerPlayer computerPlayer;
+
 
     public MainFrame() {
         setTitle("Морський Бій");
@@ -66,6 +74,50 @@ public class MainFrame extends JFrame {
         pack();
         setLocationRelativeTo(null);
 
+        // Додаємо логіку гри
         boardManager = new BoardManager(boardPanel.computerShipButtons, boardPanel.playerShipButtons);
+        computerPlayer = new ComputerPlayer(this);
+        boardRenderer = new BoardRenderer(this);
+        gameController = new GameController(this);
+
+        // Налаштування кнопки "Рандом"
+        if (randomButton != null) {
+            randomButton.setEnabled(false);
+            randomButton.addActionListener(e -> {
+                boardManager.placeShipsRandomlyOnLeftBoard();
+                boardManager.enableShootingAfterRandom();
+                randomButton.setEnabled(true);
+            });
+        }
+
+        // Налаштування кнопки "Старт"
+        if (startButton != null) {
+            startButton.addActionListener(e -> {
+                if (!gameController.isGameStarted) {
+                    boardManager.placeShipsRandomlyOnRightBoard();
+                    if (randomButton != null) {
+                        randomButton.setEnabled(true);
+                    }
+                    gameController.startGame();
+                    startButton.setEnabled(false);
+                }
+            });
+        }
+
+        // Налаштування кнопки "Скинути"
+        if (resetButton != null) {
+            resetButton.addActionListener(e -> {
+                gameController.resetBoards();
+                if (randomButton != null) {
+                    randomButton.setEnabled(false);
+                }
+                startButton.setEnabled(true);
+            });
+        }
+
+        // Додатково деактивуємо "Рандом", якщо гра ще не почалась
+        if (!gameController.isGameStarted) {
+            randomButton.setEnabled(false);
+        }
     }
 }
