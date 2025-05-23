@@ -38,3 +38,7 @@ build/
 .DS_Store
 
 .idea/
+
+src/main/java/org/seabattlepp/gui/img/img.png
+src/main/java/org/seabattlepp/gui/img/img_1.png
+src/main/java/org/seabattlepp/gui/img/img_2.png
