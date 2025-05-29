@@ -1,18 +1,18 @@
-# Battleship Game (Java + Swing)
+# Sea Battle Game (Java + Swing)
 
 ## Key Features
 
 - Developed entirely in Java
 - GUI built with Swing components
+- Reset, Start and Exit buttons
 - Interactive player and computer boards
-- Turn-based gameplay logic
 - Random ship placement
-- Reset, start and quit buttons 
-- Smart AI for the computer's moves
+- Turn-based gameplay logic
+- Smart computer player
 
 ## Development Team
 
-This project was collaboratively developed by a team of five students:
+This project was collaboratively developed by a team of five KNU students:
 
 - **Illia Tereshko**
 - **Andrii Sosunovych**
